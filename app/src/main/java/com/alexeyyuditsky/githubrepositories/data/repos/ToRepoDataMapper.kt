@@ -1,0 +1,13 @@
+package com.alexeyyuditsky.githubrepositories.data.repos
+
+interface ToRepoDataMapper {
+
+    fun map(name: String, fullName: String, avatarUrl: String, description: String): RepoData
+
+    class Base : ToRepoDataMapper {
+        override fun map(name: String, fullName: String, avatarUrl: String, description: String): RepoData {
+            return RepoData(name, fullName, avatarUrl, description)
+        }
+    }
+
+}
