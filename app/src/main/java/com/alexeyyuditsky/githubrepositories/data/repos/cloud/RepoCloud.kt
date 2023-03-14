@@ -6,7 +6,7 @@ import com.alexeyyuditsky.githubrepositories.data.repos.ToStringMapper
 import com.squareup.moshi.Json
 
 /**
- * {"name":"Android", "full_name":"open-android/Android", "owner":"{}" "description":"GitHub上最火的Android"}
+ * {"name":"Android", "full_name":"open-android/Android", "owner":"{...}" "description":"GitHub上最火的Android"}
  * */
 data class RepoCloud(
     private val name: String,

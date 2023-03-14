@@ -1,9 +1,10 @@
 package com.alexeyyuditsky.githubrepositories.data.repos
 
+import com.alexeyyuditsky.githubrepositories.core.Abstract
 import com.alexeyyuditsky.githubrepositories.data.repos.cloud.RepoCloud
 import com.alexeyyuditsky.githubrepositories.data.repos.cloud.ReposResponse
 
-interface ToReposDataMapper {
+interface ToReposDataMapper : Abstract.Mapper {
 
     fun map(reposResponse: ReposResponse): List<RepoData>
 

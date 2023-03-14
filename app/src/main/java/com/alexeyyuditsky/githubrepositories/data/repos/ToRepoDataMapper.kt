@@ -1,6 +1,8 @@
 package com.alexeyyuditsky.githubrepositories.data.repos
 
-interface ToRepoDataMapper {
+import com.alexeyyuditsky.githubrepositories.core.Abstract
+
+interface ToRepoDataMapper : Abstract.Mapper {
 
     fun map(name: String, fullName: String, avatarUrl: String, description: String): RepoData
 

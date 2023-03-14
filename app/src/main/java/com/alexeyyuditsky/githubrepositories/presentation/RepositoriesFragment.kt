@@ -16,7 +16,7 @@ class RepositoriesFragment : Fragment(R.layout.fragment_repositories) {
         super.onViewCreated(view, savedInstanceState)
 
         lifecycleScope.launch(Dispatchers.IO) {
-            Dependencies.reposInteractor.fetchRepos("Android")
+            log(Dependencies.reposInteractor.fetchRepos("Android"))
         }
     }
 

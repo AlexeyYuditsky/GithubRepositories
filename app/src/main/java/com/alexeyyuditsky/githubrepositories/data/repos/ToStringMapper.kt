@@ -1,6 +1,8 @@
 package com.alexeyyuditsky.githubrepositories.data.repos
 
-interface ToStringMapper {
+import com.alexeyyuditsky.githubrepositories.core.Abstract
+
+interface ToStringMapper : Abstract.Mapper {
 
     fun map(avatarUrl: String): String
 

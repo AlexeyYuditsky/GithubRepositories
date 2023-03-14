@@ -3,6 +3,8 @@ package com.alexeyyuditsky.githubrepositories
 import com.alexeyyuditsky.githubrepositories.data.repos.*
 import com.alexeyyuditsky.githubrepositories.data.repos.cloud.ReposCloudDataSource
 import com.alexeyyuditsky.githubrepositories.data.repos.cloud.ReposService
+import com.alexeyyuditsky.githubrepositories.domain.repos.BaseRepoDataToDomainMapper
+import com.alexeyyuditsky.githubrepositories.domain.repos.BaseReposDataToDomainMapper
 import com.alexeyyuditsky.githubrepositories.domain.repos.ReposInteractor
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
@@ -39,7 +41,10 @@ object Dependencies {
 
     private val reposRepository = ReposRepository.Base(cloudDataSource, toReposDataMapper)
 
-    val reposInteractor = ReposInteractor.Base(reposRepository)
+    val reposInteractor = ReposInteractor.Base(
+        reposRepository,
+        BaseReposDataToDomainMapper(BaseRepoDataToDomainMapper())
+    )
 
 }
 
