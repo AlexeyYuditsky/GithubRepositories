@@ -2,6 +2,7 @@ package com.alexeyyuditsky.githubrepositories.core
 
 import retrofit2.HttpException
 import java.net.UnknownHostException
+import com.alexeyyuditsky.githubrepositories.R
 
 interface Abstract {
 
@@ -11,10 +12,10 @@ interface Abstract {
 
     interface Mapper {
 
-        interface DataToDomain<S, R> {
+        interface DataToDomain<Y, U> : Mapper {
 
-            fun map(data: S): R
-            fun map(e: Exception): R
+            fun map(data: Y): U
+            fun map(e: Exception): U
 
             fun errorType(e: Exception): ErrorType {
                 return when (e) {
@@ -26,10 +27,21 @@ interface Abstract {
 
         }
 
-        interface DomainToUi<S, R> {
+        abstract class DomainToUi<I, P>(
+            private val resourceProvider: ResourceProvider,
+        ) : Mapper {
 
-            fun map(data: S): R
-            fun map(errorType: ErrorType): R
+            abstract fun map(data: I): P
+            abstract fun map(errorType: ErrorType): P
+
+            fun errorMessage(errorType: ErrorType): String {
+                val message = when (errorType) {
+                    ErrorType.NO_CONNECTION -> R.string.no_connection_message
+                    ErrorType.SERVICE_UNAVAILABLE -> R.string.service_unavailable_message
+                    else -> R.string.something_went_wrong
+                }
+                return resourceProvider.getString(message)
+            }
 
         }
 

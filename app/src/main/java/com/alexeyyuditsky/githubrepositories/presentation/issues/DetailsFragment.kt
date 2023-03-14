@@ -1,4 +1,4 @@
-package com.alexeyyuditsky.githubrepositories.presentation
+package com.alexeyyuditsky.githubrepositories.presentation.issues
 
 import android.os.Bundle
 import android.view.View

@@ -1,10 +1,9 @@
 package com.alexeyyuditsky.githubrepositories.data.repos
 
+import com.alexeyyuditsky.githubrepositories.core.Abstract
 import com.alexeyyuditsky.githubrepositories.domain.repos.ReposDomain
 
-sealed class ReposData {
-
-    abstract fun map(mapper: ReposDataToDomainMapper): ReposDomain
+sealed class ReposData : Abstract.Object<ReposDataToDomainMapper, ReposDomain> {
 
     data class Success(
         private val repos: List<RepoData>,

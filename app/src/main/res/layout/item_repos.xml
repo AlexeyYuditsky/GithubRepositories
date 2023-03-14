@@ -21,29 +21,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:text="@string/name"
         app:layout_constraintBottom_toTopOf="@id/hintFullName"
         app:layout_constraintStart_toEndOf="@+id/avatar"
         app:layout_constraintTop_toTopOf="@+id/avatar"
-        app:layout_constraintVertical_chainStyle="spread"
-        tools:text="Name:" />
+        app:layout_constraintVertical_chainStyle="spread" />
 
     <TextView
         android:id="@+id/hintFullName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/full_name"
         app:layout_constraintBottom_toTopOf="@id/hintDescription"
         app:layout_constraintStart_toStartOf="@+id/hintName"
-        app:layout_constraintTop_toBottomOf="@id/hintName"
-        tools:text="Full name:" />
+        app:layout_constraintTop_toBottomOf="@id/hintName" />
 
     <TextView
         android:id="@+id/hintDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/description"
         app:layout_constraintBottom_toBottomOf="@+id/avatar"
         app:layout_constraintStart_toStartOf="@+id/hintName"
-        app:layout_constraintTop_toBottomOf="@id/hintFullName"
-        tools:text="Description:" />
+        app:layout_constraintTop_toBottomOf="@id/hintFullName" />
 
     <TextView
         android:id="@+id/name"
