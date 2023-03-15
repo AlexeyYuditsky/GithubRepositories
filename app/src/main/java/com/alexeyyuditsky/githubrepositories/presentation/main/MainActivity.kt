@@ -3,7 +3,7 @@ package com.alexeyyuditsky.githubrepositories.presentation.main
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.alexeyyuditsky.githubrepositories.R
-import com.alexeyyuditsky.githubrepositories.presentation.repos.RepositoriesFragment
+import com.alexeyyuditsky.githubrepositories.presentation.repos.ReposFragment
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, RepositoriesFragment())
+                .replace(R.id.fragmentContainer, ReposFragment())
                 .commit()
         }
     }

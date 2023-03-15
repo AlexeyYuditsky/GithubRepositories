@@ -9,7 +9,7 @@ import com.squareup.moshi.Json
  * */
 data class RepoAvatar(
     @field:Json(name = "avatar_url")
-    private val avatarUrl: String,
+    val avatarUrl: String,
 ) : Abstract.Object<ToStringMapper, String> {
 
     override fun map(mapper: ToStringMapper): String {

@@ -9,11 +9,11 @@ import com.squareup.moshi.Json
  * {"name":"Android", "full_name":"open-android/Android", "owner":"{...}" "description":"GitHub上最火的Android"}
  * */
 data class RepoCloud(
-    private val name: String,
+    val name: String,
     @field:Json(name = "full_name")
-    private val fullName: String,
-    private val owner: RepoAvatar,
-    private val description: String?,
+    val fullName: String,
+    val owner: RepoAvatar,
+    val description: String?,
 ) {
 
     fun map(toStringMapper: ToStringMapper, toRepoDataMapper: ToRepoDataMapper): RepoData {

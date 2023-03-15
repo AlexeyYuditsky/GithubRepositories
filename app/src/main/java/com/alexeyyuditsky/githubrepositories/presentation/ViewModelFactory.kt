@@ -1,4 +1,4 @@
-package com.alexeyyuditsky.githubrepositories
+package com.alexeyyuditsky.githubrepositories.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

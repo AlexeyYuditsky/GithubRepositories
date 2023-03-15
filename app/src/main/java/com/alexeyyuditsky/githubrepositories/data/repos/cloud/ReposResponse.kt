@@ -7,7 +7,7 @@ import com.alexeyyuditsky.githubrepositories.data.repos.ToRepoCloudMapper
  * {"items":"[...]"}
  * */
 data class ReposResponse(
-    private val items: List<RepoCloud>,
+    val items: List<RepoCloud>,
 ) : Abstract.Object<ToRepoCloudMapper, List<RepoCloud>> {
 
     override fun map(mapper: ToRepoCloudMapper): List<RepoCloud> {

@@ -6,16 +6,17 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
 
-interface ReposCloudDataSource {
+const val NETWORK_PAGE_SIZE = 15
 
-    suspend fun fetchRepos(query: String): LiveData<PagingData<RepoCloud>>
-    /* suspend fun fetchRepos(query: String): ReposResponse */
+interface PagingReposRepository {
+
+    fun fetchRepos(query: String): LiveData<PagingData<RepoCloud>>
 
     class Base(
         private val service: ReposService,
-    ) : ReposCloudDataSource {
+    ) : PagingReposRepository {
 
-        override suspend fun fetchRepos(query: String): LiveData<PagingData<RepoCloud>> {
+        override fun fetchRepos(query: String): LiveData<PagingData<RepoCloud>> {
             return Pager(
                 config = PagingConfig(
                     pageSize = NETWORK_PAGE_SIZE,
@@ -24,10 +25,6 @@ interface ReposCloudDataSource {
                 pagingSourceFactory = { PagingReposSource(service, query) }
             ).liveData
         }
-
-        /*override suspend fun fetchRepos(query: String): ReposResponse {
-            return service.fetchRepos(query)
-        }*/
 
     }
 
