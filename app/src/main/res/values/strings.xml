@@ -8,4 +8,7 @@
     <string name="full_name">Full name:</string>
     <string name="description">Description:</string>
     <string name="retry">Retry</string>
+    <string name="search_hint">GitHub Repository</string>
+    <string name="no_results">No results 😓</string>
+    <string name="whoops">😨 Whoops %s</string>
 </resources>

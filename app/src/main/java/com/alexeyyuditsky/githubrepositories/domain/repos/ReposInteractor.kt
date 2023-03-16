@@ -6,10 +6,11 @@ import com.alexeyyuditsky.githubrepositories.data.repos.ReposData
 import com.alexeyyuditsky.githubrepositories.data.repos.ReposDataToDomainMapper
 import com.alexeyyuditsky.githubrepositories.data.repos.ReposRepository
 import com.alexeyyuditsky.githubrepositories.data.repos.cloud.RepoCloud
+import kotlinx.coroutines.flow.Flow
 
 interface ReposInteractor {
 
-    suspend fun fetchRepos(query:String):LiveData<PagingData<RepoCloud>>
+    suspend fun fetchRepos(query:String):Flow<PagingData<RepoCloud>>
     // suspend fun fetchRepos(query: String): ReposDomain
 
     class Base(
@@ -17,7 +18,7 @@ interface ReposInteractor {
         private val mapper: ReposDataToDomainMapper
     ) : ReposInteractor {
 
-        override suspend fun fetchRepos(query: String): LiveData<PagingData<RepoCloud>> {
+        override suspend fun fetchRepos(query: String): Flow<PagingData<RepoCloud>> {
             return repository.fetchRepos(query)
         }
 

@@ -8,13 +8,8 @@ interface ReposService {
     @GET("repositories")
     suspend fun fetchRepos(
         @Query("q") query: String,
-    ): ReposResponse
-
-    @GET("repositories")
-    suspend fun fetchRepos2(
-        @Query("q") query: String,
-        @Query("page") pageNumber: Int = 1,
-        @Query("per_page") pageSize: Int = QUERY_PAGE_SIZE,
+        @Query("page") start: Int = 1,
+        @Query("per_page") limit: Int = QUERY_PAGE_SIZE,
     ): ReposResponse
 
     companion object {

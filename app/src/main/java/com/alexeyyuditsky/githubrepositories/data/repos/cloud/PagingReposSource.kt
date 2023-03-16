@@ -2,28 +2,27 @@ package com.alexeyyuditsky.githubrepositories.data.repos.cloud
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.alexeyyuditsky.githubrepositories.core.log
 import retrofit2.HttpException
+
+const val NETWORK_PAGE_SIZE = 15
+private const val INITIAL_LOAD_SIZE = 1
 
 class PagingReposSource(
     private val service: ReposService,
     private val query: String,
+    // private va mapper: Mapper
 ) : PagingSource<Int, RepoCloud>() {
 
-    init {
-        "hel"
-    }
-
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, RepoCloud> {
-        val position = params.key ?: REPOS_STARTING_PAGE_INDEX
+        val position = params.key ?: INITIAL_LOAD_SIZE
 
         return try {
-            val response = service.fetchRepos2(query, position, params.loadSize)
+            val response = service.fetchRepos(query, position, params.loadSize)
             val repos = response.items
-            val nextKey = if (repos.isEmpty()) null else position + params.loadSize / NETWORK_PAGE_SIZE
+            val nextKey = if (repos.isEmpty()) null else position + (params.loadSize / NETWORK_PAGE_SIZE)
             LoadResult.Page(
                 data = repos,
-                prevKey = if (position == REPOS_STARTING_PAGE_INDEX) null else position - 1,
+                prevKey = if (position == 1) null else position - 1,
                 nextKey = nextKey
             )
         } catch (e: Exception) {
@@ -38,11 +37,6 @@ class PagingReposSource(
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
         }
-    }
-
-    companion object {
-        private const val REPOS_STARTING_PAGE_INDEX = 1
-        private const val NETWORK_PAGE_SIZE = 15
     }
 
 }
