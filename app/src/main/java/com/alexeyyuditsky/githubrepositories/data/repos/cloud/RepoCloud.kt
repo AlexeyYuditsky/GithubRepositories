@@ -6,19 +6,19 @@ import com.alexeyyuditsky.githubrepositories.data.repos.ToStringMapper
 import com.squareup.moshi.Json
 
 /**
- * {"name":"Android", "full_name":"open-android/Android", "owner":"{...}" "description":"GitHub上最火的Android"}
+ * {"id":"82128465", name":"Android", "owner":"{...}" "description":"GitHub上最火的Android"}
  * */
 data class RepoCloud(
-    val name: String,
-    @field:Json(name = "full_name")
-    val fullName: String,
-    val owner: RepoAvatar,
+    val id: Long,
+    @field:Json(name = "name")
+    val repository: String,
+    val owner: RepoOwner,
     val description: String?,
 ) {
 
     fun map(toStringMapper: ToStringMapper, toRepoDataMapper: ToRepoDataMapper): RepoData {
         val avatarUrl = owner.map(toStringMapper)
-        return toRepoDataMapper.map(name, fullName, avatarUrl, description ?: "")
+        return toRepoDataMapper.map(repository, avatarUrl, description ?: "")
     }
 
 }

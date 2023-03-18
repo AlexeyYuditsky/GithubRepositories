@@ -5,9 +5,10 @@ import com.alexeyyuditsky.githubrepositories.data.repos.ToStringMapper
 import com.squareup.moshi.Json
 
 /**
- * {"avatar_url":"https://avatars.githubusercontent.com/u/23095877?v=4"}
+ * {"login":"open-android", "avatar_url":"https://avatars.githubusercontent.com/u/23095877?v=4"}
  * */
-data class RepoAvatar(
+data class RepoOwner(
+    val login: String,
     @field:Json(name = "avatar_url")
     val avatarUrl: String,
 ) : Abstract.Object<ToStringMapper, String> {

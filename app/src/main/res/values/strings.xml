@@ -11,4 +11,10 @@
     <string name="search_hint">GitHub Repository</string>
     <string name="no_results">No results 😓</string>
     <string name="whoops">😨 Whoops %s</string>
+    <string name="title">Title:</string>
+    <string name="user">User:</string>
+    <string name="created">Created:</string>
+    <string name="updated">Updated:</string>
+    <string name="login">Login:</string>
+    <string name="repository">Repository:</string>
 </resources>

@@ -41,13 +41,13 @@ class App : Application() {
 
         val cloudDataSource = ReposCloudDataSource.Base(reposService)
 
-        val toReposDataMapper = ToReposDataMapper.Base(
+        /*val toReposDataMapper = ToReposDataMapper.Base(
             ToRepoCloudMapper.Base(),
             ToStringMapper.Base(),
-            ToRepoDataMapper.Base()
-        )
+           // ToRepoDataMapper.Base()
+        )*/
 
-        val reposRepository = ReposRepository.Base(cloudDataSource, toReposDataMapper)
+        val reposRepository = ReposRepository.Base(cloudDataSource, /*toReposDataMapper*/)
 
         reposInteractor = ReposInteractor.Base(
             reposRepository,

@@ -4,73 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     android:padding="8dp">
 
     <ImageView
         android:id="@+id/avatar"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/hintDescription"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/hintLogin"
         tools:ignore="ContentDescription"
         tools:src="@drawable/ic_launcher_foreground" />
 
     <TextView
-        android:id="@+id/hintName"
+        android:id="@+id/hintLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="@string/name"
-        app:layout_constraintBottom_toTopOf="@id/hintFullName"
+        android:text="@string/login"
+        app:layout_constraintBottom_toTopOf="@id/hintRepository"
         app:layout_constraintStart_toEndOf="@+id/avatar"
-        app:layout_constraintTop_toTopOf="@+id/avatar"
-        app:layout_constraintVertical_chainStyle="spread" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
 
     <TextView
-        android:id="@+id/hintFullName"
+        android:id="@+id/hintRepository"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/full_name"
-        app:layout_constraintBottom_toTopOf="@id/hintDescription"
-        app:layout_constraintStart_toStartOf="@+id/hintName"
-        app:layout_constraintTop_toBottomOf="@id/hintName" />
+        android:text="@string/repository"
+        app:layout_constraintStart_toStartOf="@+id/hintLogin"
+        app:layout_constraintTop_toBottomOf="@id/hintLogin" />
 
     <TextView
         android:id="@+id/hintDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/description"
-        app:layout_constraintBottom_toBottomOf="@+id/avatar"
-        app:layout_constraintStart_toStartOf="@+id/hintName"
-        app:layout_constraintTop_toBottomOf="@id/hintFullName" />
+        app:layout_constraintStart_toStartOf="@+id/hintLogin"
+        app:layout_constraintTop_toBottomOf="@id/hintRepository" />
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
+        android:layout_marginStart="8dp"
         android:ellipsize="end"
         android:lines="1"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/hintName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/hintDescription"
-        app:layout_constraintTop_toTopOf="@+id/hintName"
-        tools:text="Android" />
+        app:layout_constraintTop_toTopOf="@+id/hintLogin"
+        tools:text="open-android" />
 
     <TextView
-        android:id="@+id/fullName"
+        android:id="@+id/repository"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:lines="1"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/hintFullName"
-        app:layout_constraintEnd_toEndOf="@+id/name"
-        app:layout_constraintStart_toStartOf="@+id/name"
-        app:layout_constraintTop_toTopOf="@+id/hintFullName"
-        tools:text="hmkcode/Android" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/login"
+        app:layout_constraintTop_toBottomOf="@+id/login"
+        tools:text="Android" />
 
     <TextView
         android:id="@+id/description"
@@ -79,10 +76,9 @@
         android:ellipsize="end"
         android:lines="1"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/hintDescription"
-        app:layout_constraintEnd_toEndOf="@+id/fullName"
-        app:layout_constraintStart_toStartOf="@+id/name"
-        app:layout_constraintTop_toTopOf="@+id/hintDescription"
-        tools:text="Android related examplessssssssSS" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/login"
+        app:layout_constraintTop_toBottomOf="@+id/repository"
+        tools:text="GitHub上最火的Android开源项目,所有开源项目都有详细资料和配套视频" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

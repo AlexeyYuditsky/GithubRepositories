@@ -6,12 +6,12 @@ import com.alexeyyuditsky.githubrepositories.data.repos.cloud.ReposResponse
 
 interface ToReposDataMapper : Abstract.Mapper {
 
-    fun map(reposResponse: ReposResponse): List<RepoData>
+    /*fun map(reposResponse: ReposResponse): List<RepoData>
 
     class Base(
         private val toRepoCloudMapper: ToRepoCloudMapper,
         private val toStringMapper: ToStringMapper,
-        private val toRepoDataMapper: ToRepoDataMapper,
+       // private val toRepoDataMapper: ToRepoDataMapper,
     ) : ToReposDataMapper {
 
         override fun map(reposResponse: ReposResponse): List<RepoData> {
@@ -22,6 +22,6 @@ interface ToReposDataMapper : Abstract.Mapper {
             return reposData
         }
 
-    }
+    }*/
 
 }

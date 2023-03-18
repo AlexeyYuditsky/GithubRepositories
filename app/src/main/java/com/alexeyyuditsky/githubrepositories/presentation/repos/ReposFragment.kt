@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -11,27 +12,26 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.alexeyyuditsky.githubrepositories.App
 import com.alexeyyuditsky.githubrepositories.R
-import com.alexeyyuditsky.githubrepositories.databinding.FragmentRepositoriesBinding
+import com.alexeyyuditsky.githubrepositories.core.log
+import com.alexeyyuditsky.githubrepositories.databinding.FragmentReposBinding
 import com.alexeyyuditsky.githubrepositories.presentation.ViewModelFactory
-import com.google.android.material.textfield.TextInputEditText
+import com.alexeyyuditsky.githubrepositories.presentation.issues.IssuesFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class ReposFragment : Fragment(R.layout.fragment_repositories) {
+class ReposFragment : Fragment(R.layout.fragment_repos) {
 
     private val app by lazy { (requireActivity().application as App) }
     private val viewModel by viewModels<ReposViewModel> { ViewModelFactory(app.reposInteractor, app.mapper) }
-    private lateinit var binding: FragmentRepositoriesBinding
-
-    private val reposAdapter = ReposAdapterPaging()
+    private lateinit var binding: FragmentReposBinding
+    private val reposAdapter = ReposAdapterPaging(createItemClickListener())
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentRepositoriesBinding.bind(view)
+        binding = FragmentReposBinding.bind(view)
 
         initViews()
         initObservers()
@@ -43,20 +43,18 @@ class ReposFragment : Fragment(R.layout.fragment_repositories) {
     }
 
     private fun initSearchEditText() {
-        val searchEditText = requireActivity().findViewById<TextInputEditText>(R.id.searchEditText)
-        searchEditText.addTextChangedListener {
-            viewModel.queryToRepos(searchEditText.text!!.trim().toString())
+        binding.searchEditText.addTextChangedListener {
+            viewModel.queryToRepos(binding.searchEditText.text!!.trim().toString())
         }
     }
 
     private fun initRecyclerView() {
-        val recyclerView = requireActivity().findViewById<RecyclerView>(R.id.recyclerView)
-        recyclerView.adapter = reposAdapter.withLoadStateHeaderAndFooter(
+        binding.recyclerView.adapter = reposAdapter.withLoadStateHeaderAndFooter(
             header = LoadStateAdapter { reposAdapter.retry() },
             footer = LoadStateAdapter { reposAdapter.retry() },
         )
-        recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayout.VERTICAL))
-        (recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+        binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayout.VERTICAL))
+        (binding.recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
     }
 
     private fun initObservers() {
@@ -89,6 +87,26 @@ class ReposFragment : Fragment(R.layout.fragment_repositories) {
                     Toast.makeText(requireContext(), getString(R.string.whoops, it.error), Toast.LENGTH_LONG).show()
                 }
             }
+        }
+        binding.retryButton.setOnClickListener { reposAdapter.retry() }
+    }
+
+    private fun createItemClickListener(): ItemClickListener {
+        return { avatar: String, login: String, repository: String, description: String ->
+            val fragment = IssuesFragment()
+            fragment.arguments = bundleOf(
+                "avatar" to avatar,
+                "login" to login,
+                "repository" to repository,
+                "description" to description
+            )
+
+            requireActivity()
+                .supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .addToBackStack(null)
+                .commit()
         }
     }
 

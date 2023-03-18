@@ -67,15 +67,15 @@ abstract class ReposViewHolder(
     ) : ReposViewHolder(view) {
 
         private val avatarImageView = itemView.findViewById<ImageView>(R.id.avatar)
-        private val nameTextView = itemView.findViewById<TextView>(R.id.name)
-        private val fullNameTextView = itemView.findViewById<TextView>(R.id.fullName)
+       // private val nameTextView = itemView.findViewById<TextView>(R.id.`@+id/login`)
+       // private val fullNameTextView = itemView.findViewById<TextView>(R.id.`@+id/repository`)
         private val descriptionTextView = itemView.findViewById<TextView>(R.id.description)
 
         override fun bind(item: RepoUi) {
             item.map(object : RepoUiToTextMapper {
                 override fun map(name: String, fullName: String?, avatarUrl: String?, description: String?) {
-                    nameTextView.text = name
-                    fullNameTextView.text = fullName
+                  //  nameTextView.text = name
+                  //  fullNameTextView.text = fullName
                     descriptionTextView.text = description
                     Glide.with(itemView.context)
                         .load(avatarUrl)
