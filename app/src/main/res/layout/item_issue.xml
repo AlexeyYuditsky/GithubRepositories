@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@id/hintCreated" />
 
     <TextView
-        android:id="@+id/Title"
+        android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
@@ -53,38 +53,38 @@
         tools:text="Title" />
 
     <TextView
-        android:id="@+id/User"
+        android:id="@+id/user"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:lines="1"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/Title"
-        app:layout_constraintStart_toStartOf="@+id/Title"
+        app:layout_constraintEnd_toEndOf="@+id/title"
+        app:layout_constraintStart_toStartOf="@+id/title"
         app:layout_constraintTop_toBottomOf="@id/hintTitle"
         tools:text="Shriraj29" />
 
     <TextView
-        android:id="@+id/Created"
+        android:id="@+id/created"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:lines="1"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/Title"
-        app:layout_constraintStart_toStartOf="@+id/Title"
+        app:layout_constraintEnd_toEndOf="@+id/title"
+        app:layout_constraintStart_toStartOf="@+id/title"
         app:layout_constraintTop_toBottomOf="@id/hintUser"
         tools:text="2022-11-28T22:39:59Z" />
 
     <TextView
-        android:id="@+id/Updated"
+        android:id="@+id/updated"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:lines="1"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/Title"
-        app:layout_constraintStart_toStartOf="@+id/Created"
+        app:layout_constraintEnd_toEndOf="@+id/title"
+        app:layout_constraintStart_toStartOf="@+id/created"
         app:layout_constraintTop_toBottomOf="@id/hintCreated"
         tools:text="2023-02-25T08:43:10Zdfdsfdsfdsfdsfdsfsdfdsfdsfsdf" />
 

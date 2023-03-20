@@ -5,7 +5,7 @@ import retrofit2.http.Query
 
 interface ReposService {
 
-    @GET("repositories")
+    @GET("search/repositories")
     suspend fun fetchRepos(
         @Query("q") query: String,
         @Query("page") start: Int = 1,

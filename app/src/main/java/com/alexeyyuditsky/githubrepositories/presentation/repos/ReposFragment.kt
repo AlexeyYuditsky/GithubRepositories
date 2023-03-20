@@ -13,11 +13,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.SimpleItemAnimator
-import com.alexeyyuditsky.githubrepositories.App
+import com.alexeyyuditsky.githubrepositories.core.App
 import com.alexeyyuditsky.githubrepositories.R
-import com.alexeyyuditsky.githubrepositories.core.log
 import com.alexeyyuditsky.githubrepositories.databinding.FragmentReposBinding
-import com.alexeyyuditsky.githubrepositories.presentation.ViewModelFactory
+import com.alexeyyuditsky.githubrepositories.presentation.ViewModelFactoryRepos
 import com.alexeyyuditsky.githubrepositories.presentation.issues.IssuesFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -25,7 +24,7 @@ import kotlinx.coroutines.launch
 class ReposFragment : Fragment(R.layout.fragment_repos) {
 
     private val app by lazy { (requireActivity().application as App) }
-    private val viewModel by viewModels<ReposViewModel> { ViewModelFactory(app.reposInteractor, app.mapper) }
+    private val viewModel by viewModels<ReposViewModel> { ViewModelFactoryRepos(app.reposInteractor, app.mapper) }
     private lateinit var binding: FragmentReposBinding
     private val reposAdapter = ReposAdapterPaging(createItemClickListener())
 
@@ -35,6 +34,8 @@ class ReposFragment : Fragment(R.layout.fragment_repos) {
 
         initViews()
         initObservers()
+
+        requireActivity().title = getString(R.string.app_name)
     }
 
     private fun initViews() {
@@ -95,10 +96,10 @@ class ReposFragment : Fragment(R.layout.fragment_repos) {
         return { avatar: String, login: String, repository: String, description: String ->
             val fragment = IssuesFragment()
             fragment.arguments = bundleOf(
-                "avatar" to avatar,
-                "login" to login,
-                "repository" to repository,
-                "description" to description
+                IssuesFragment.KEY_AVATAR to avatar,
+                IssuesFragment.KEY_LOGIN to login,
+                IssuesFragment.KEY_REPO to repository,
+                IssuesFragment.KEY_DESC to description
             )
 
             requireActivity()

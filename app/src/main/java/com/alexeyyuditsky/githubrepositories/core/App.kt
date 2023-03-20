@@ -1,10 +1,13 @@
-package com.alexeyyuditsky.githubrepositories
+package com.alexeyyuditsky.githubrepositories.core
 
 import android.app.Application
-import com.alexeyyuditsky.githubrepositories.core.ResourceProvider
+import com.alexeyyuditsky.githubrepositories.data.issues.IssuesRepository
+import com.alexeyyuditsky.githubrepositories.data.issues.cloud.IssuesCloudDataSource
+import com.alexeyyuditsky.githubrepositories.data.issues.cloud.IssuesService
 import com.alexeyyuditsky.githubrepositories.data.repos.*
 import com.alexeyyuditsky.githubrepositories.data.repos.cloud.ReposCloudDataSource
 import com.alexeyyuditsky.githubrepositories.data.repos.cloud.ReposService
+import com.alexeyyuditsky.githubrepositories.domain.issues.IssuesInteractor
 import com.alexeyyuditsky.githubrepositories.domain.repos.BaseRepoDataToDomainMapper
 import com.alexeyyuditsky.githubrepositories.domain.repos.BaseReposDataToDomainMapper
 import com.alexeyyuditsky.githubrepositories.domain.repos.ReposDomainToUiMapper
@@ -22,6 +25,9 @@ class App : Application() {
     lateinit var reposInteractor: ReposInteractor
     lateinit var mapper: ReposDomainToUiMapper
 
+    lateinit var issuesInteractor: IssuesInteractor
+    lateinit var resourceProvider: ResourceProvider
+
     override fun onCreate() {
         super.onCreate()
 
@@ -38,27 +44,30 @@ class App : Application() {
             .build()
 
         val reposService = retrofit.create(ReposService::class.java)
+        val issuesService = retrofit.create(IssuesService::class.java)
 
-        val cloudDataSource = ReposCloudDataSource.Base(reposService)
+        val reposCloudDataSource = ReposCloudDataSource.Base(reposService)
+        val issuesCloudDataSource = IssuesCloudDataSource.Base(issuesService)
 
-        /*val toReposDataMapper = ToReposDataMapper.Base(
-            ToRepoCloudMapper.Base(),
-            ToStringMapper.Base(),
-           // ToRepoDataMapper.Base()
-        )*/
-
-        val reposRepository = ReposRepository.Base(cloudDataSource, /*toReposDataMapper*/)
+        val reposRepository = ReposRepository.Base(reposCloudDataSource /*toReposDataMapper*/)
+        val issuesRepository = IssuesRepository.Base(issuesCloudDataSource /*toReposDataMapper*/)
 
         reposInteractor = ReposInteractor.Base(
             reposRepository,
             BaseReposDataToDomainMapper(BaseRepoDataToDomainMapper())
         )
+        issuesInteractor = IssuesInteractor.Base(
+            issuesRepository
+        )
+
+        resourceProvider = ResourceProvider.Base(this)
 
         mapper = BaseReposDomainToUiMapper(BaseRepoDomainToUiMapper(), ResourceProvider.Base(this))
     }
 
+
     companion object {
-        private const val BASE_URL = "https://api.github.com/search/"
+        private const val BASE_URL = "https://api.github.com/"
     }
 
 }
