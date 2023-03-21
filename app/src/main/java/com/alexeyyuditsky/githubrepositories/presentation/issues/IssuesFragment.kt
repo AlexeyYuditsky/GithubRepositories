@@ -45,7 +45,7 @@ class IssuesFragment : Fragment(R.layout.fragment_issues) {
     }
 
     private fun initRecyclerView(): IssuesAdapter {
-        val issuesAdapter = IssuesAdapter()
+        val issuesAdapter = IssuesAdapter { user: String, repo: String -> viewModel.fetchIssues(user, repo) }
         binding.recyclerView.adapter = issuesAdapter
         binding.recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayout.VERTICAL))
         (binding.recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false

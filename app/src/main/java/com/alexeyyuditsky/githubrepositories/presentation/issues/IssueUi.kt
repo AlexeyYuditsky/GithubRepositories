@@ -43,7 +43,7 @@ sealed class IssueUi {
         val message: String,
     ) : IssueUi() {
         override fun map(mapper: ToTextMapper) {
-            //
+            mapper.map(message)
         }
     }
 

@@ -1,13 +1,18 @@
 package com.alexeyyuditsky.githubrepositories.presentation.issues
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.alexeyyuditsky.githubrepositories.R
+import com.alexeyyuditsky.githubrepositories.databinding.ItemFailBinding
+import com.alexeyyuditsky.githubrepositories.databinding.ItemIssueBinding
 
-class IssuesAdapter : RecyclerView.Adapter<IssueViewHolder>() {
+typealias RetryClickListenerWithArg = (user:String, repo:String) -> Unit
+
+class IssuesAdapter(
+    private val retry: RetryClickListenerWithArg,
+) : RecyclerView.Adapter<IssueViewHolder>() {
 
     private val issues = mutableListOf<IssueUi>()
 
@@ -31,10 +36,22 @@ class IssuesAdapter : RecyclerView.Adapter<IssueViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IssueViewHolder {
         return when (viewType) {
-            R.layout.item_issue -> IssueViewHolder.Base(inflateLayout(viewType, parent))
-            R.layout.item_fail -> IssueViewHolder.Fail(inflateLayout(viewType, parent))
-            R.layout.item_empty -> IssueViewHolder.Empty(inflateLayout(viewType, parent))
-            else -> IssueViewHolder.Progress(inflateLayout(viewType, parent))
+            R.layout.item_issue -> {
+                val binding = ItemIssueBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                IssueViewHolder.Base(binding)
+            }
+            R.layout.item_fail -> {
+                val binding = ItemFailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                IssueViewHolder.Fail(binding, retry)
+            }
+            R.layout.item_empty -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.item_empty, parent, false)
+                IssueViewHolder.Empty(view)
+            }
+            else -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.item_progress, parent, false)
+                IssueViewHolder.Progress(view)
+            }
         }
     }
 
@@ -43,10 +60,6 @@ class IssuesAdapter : RecyclerView.Adapter<IssueViewHolder>() {
     }
 
     override fun getItemCount(): Int = issues.size
-
-    private fun inflateLayout(viewType: Int, parent: ViewGroup): View {
-        return LayoutInflater.from(parent.context).inflate(viewType, parent, false)
-    }
 
 }
 
