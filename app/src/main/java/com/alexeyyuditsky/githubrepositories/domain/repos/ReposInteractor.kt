@@ -1,22 +1,27 @@
 package com.alexeyyuditsky.githubrepositories.domain.repos
 
 import androidx.paging.PagingData
-import com.alexeyyuditsky.githubrepositories.data.repos.ReposDataToDomainMapper
+import androidx.paging.map
 import com.alexeyyuditsky.githubrepositories.data.repos.ReposRepository
-import com.alexeyyuditsky.githubrepositories.data.repos.cloud.RepoCloud
+import com.alexeyyuditsky.githubrepositories.presentation.repos.RepoUi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 interface ReposInteractor {
 
-    suspend fun fetchRepos(query: String): Flow<PagingData<RepoCloud>>
+    suspend fun fetchRepos(query: String): Flow<PagingData<RepoUi>>
 
     class Base(
         private val repository: ReposRepository,
-        private val mapper: ReposDataToDomainMapper,
     ) : ReposInteractor {
 
-        override suspend fun fetchRepos(query: String): Flow<PagingData<RepoCloud>> {
-            return repository.fetchRepos(query)
+        override suspend fun fetchRepos(query: String): Flow<PagingData<RepoUi>> {
+            val reposUiFlow = repository.fetchRepos(query).map { pagingData ->
+                pagingData.map { repoCloud ->
+                    repoCloud.toRepoUi()
+                }
+            }
+            return reposUiFlow
         }
 
     }

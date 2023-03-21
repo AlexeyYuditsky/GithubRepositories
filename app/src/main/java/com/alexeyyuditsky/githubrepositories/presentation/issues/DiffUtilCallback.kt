@@ -1,7 +1,6 @@
-package com.alexeyyuditsky.githubrepositories.core
+package com.alexeyyuditsky.githubrepositories.presentation.issues
 
 import androidx.recyclerview.widget.DiffUtil
-import com.alexeyyuditsky.githubrepositories.presentation.issues.IssueUi
 
 class DiffUtilCallback(
     private val oldList: List<IssueUi>,

@@ -10,10 +10,19 @@
         android:id="@+id/item_repos"
         layout="@layout/item_repos" />
 
+    <TextView
+        android:id="@+id/hintIssues"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E8E8E8"
+        android:paddingHorizontal="8dp"
+        android:text="@string/hint_issues" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="5"
         tools:listitem="@layout/item_issue" />

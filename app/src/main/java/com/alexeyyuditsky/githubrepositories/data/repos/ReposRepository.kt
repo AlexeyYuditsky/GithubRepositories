@@ -11,12 +11,10 @@ interface ReposRepository {
 
     class Base(
         private val cloudDataSource: ReposCloudDataSource,
-       // private val mapper: ToReposDataMapper,
     ) : ReposRepository {
 
         override suspend fun fetchRepos(query: String): Flow<PagingData<RepoCloud>> {
-            val response: Flow<PagingData<RepoCloud>> = cloudDataSource.fetchRepos(query)
-            return response
+            return cloudDataSource.fetchRepos(query)
         }
 
     }

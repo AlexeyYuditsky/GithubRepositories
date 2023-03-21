@@ -4,13 +4,9 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import retrofit2.HttpException
 
-const val NETWORK_PAGE_SIZE = 15
-private const val INITIAL_LOAD_SIZE = 1
-
 class PagingReposSource(
     private val service: ReposService,
     private val query: String,
-    // private va mapper: Mapper
 ) : PagingSource<Int, RepoCloud>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, RepoCloud> {
@@ -37,6 +33,11 @@ class PagingReposSource(
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
         }
+    }
+
+    companion object {
+        private const val INITIAL_LOAD_SIZE = 1
+        const val NETWORK_PAGE_SIZE = 15
     }
 
 }

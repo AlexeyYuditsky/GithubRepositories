@@ -1,8 +1,6 @@
 package com.alexeyyuditsky.githubrepositories.data.repos.cloud
 
-import com.alexeyyuditsky.githubrepositories.data.repos.RepoData
-import com.alexeyyuditsky.githubrepositories.data.repos.ToRepoDataMapper
-import com.alexeyyuditsky.githubrepositories.data.repos.ToStringMapper
+import com.alexeyyuditsky.githubrepositories.presentation.repos.RepoUi
 import com.squareup.moshi.Json
 
 /**
@@ -16,9 +14,15 @@ data class RepoCloud(
     val description: String?,
 ) {
 
-    fun map(toStringMapper: ToStringMapper, toRepoDataMapper: ToRepoDataMapper): RepoData {
-        val avatarUrl = owner.map(toStringMapper)
-        return toRepoDataMapper.map(repository, avatarUrl, description ?: "")
+    fun toRepoUi(): RepoUi {
+        return RepoUi(
+            id = id,
+            avatarUrl = owner.avatarUrl,
+            login = owner.login,
+            repository = repository,
+            description = description ?: ""
+        )
     }
 
 }
+

@@ -8,12 +8,7 @@ import com.alexeyyuditsky.githubrepositories.data.repos.*
 import com.alexeyyuditsky.githubrepositories.data.repos.cloud.ReposCloudDataSource
 import com.alexeyyuditsky.githubrepositories.data.repos.cloud.ReposService
 import com.alexeyyuditsky.githubrepositories.domain.issues.IssuesInteractor
-import com.alexeyyuditsky.githubrepositories.domain.repos.BaseRepoDataToDomainMapper
-import com.alexeyyuditsky.githubrepositories.domain.repos.BaseReposDataToDomainMapper
-import com.alexeyyuditsky.githubrepositories.domain.repos.ReposDomainToUiMapper
 import com.alexeyyuditsky.githubrepositories.domain.repos.ReposInteractor
-import com.alexeyyuditsky.githubrepositories.presentation.repos.BaseRepoDomainToUiMapper
-import com.alexeyyuditsky.githubrepositories.presentation.repos.BaseReposDomainToUiMapper
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,7 +18,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 class App : Application() {
 
     lateinit var reposInteractor: ReposInteractor
-    lateinit var mapper: ReposDomainToUiMapper
 
     lateinit var issuesInteractor: IssuesInteractor
     lateinit var resourceProvider: ResourceProvider
@@ -52,17 +46,10 @@ class App : Application() {
         val reposRepository = ReposRepository.Base(reposCloudDataSource /*toReposDataMapper*/)
         val issuesRepository = IssuesRepository.Base(issuesCloudDataSource /*toReposDataMapper*/)
 
-        reposInteractor = ReposInteractor.Base(
-            reposRepository,
-            BaseReposDataToDomainMapper(BaseRepoDataToDomainMapper())
-        )
-        issuesInteractor = IssuesInteractor.Base(
-            issuesRepository
-        )
+        reposInteractor = ReposInteractor.Base(reposRepository)
+        issuesInteractor = IssuesInteractor.Base(issuesRepository)
 
         resourceProvider = ResourceProvider.Base(this)
-
-        mapper = BaseReposDomainToUiMapper(BaseRepoDomainToUiMapper(), ResourceProvider.Base(this))
     }
 
 

@@ -3,6 +3,7 @@ package com.alexeyyuditsky.githubrepositories.data.repos.cloud
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.alexeyyuditsky.githubrepositories.data.repos.cloud.PagingReposSource.Companion.NETWORK_PAGE_SIZE
 import kotlinx.coroutines.flow.Flow
 
 interface ReposCloudDataSource {

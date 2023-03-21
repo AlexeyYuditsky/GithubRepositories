@@ -7,10 +7,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.SimpleItemAnimator
-import com.alexeyyuditsky.githubrepositories.core.App
 import com.alexeyyuditsky.githubrepositories.R
+import com.alexeyyuditsky.githubrepositories.core.App
 import com.alexeyyuditsky.githubrepositories.databinding.FragmentIssuesBinding
 import com.alexeyyuditsky.githubrepositories.presentation.ViewModelFactoryIssues
+import com.alexeyyuditsky.githubrepositories.presentation.main.MainActivity
 import com.bumptech.glide.Glide
 
 class IssuesFragment : Fragment(R.layout.fragment_issues) {
@@ -38,7 +39,9 @@ class IssuesFragment : Fragment(R.layout.fragment_issues) {
     }
 
     private fun initToolbar(repo: String) {
-        requireActivity().title = getString(R.string.issues, repo)
+        val actionBar = (requireActivity() as MainActivity).supportActionBar
+        actionBar?.title = getString(R.string.issues, repo)
+        actionBar?.show()
     }
 
     private fun initRecyclerView(): IssuesAdapter {
@@ -65,10 +68,12 @@ class IssuesFragment : Fragment(R.layout.fragment_issues) {
         val login = arguments?.getString(KEY_LOGIN).toString()
         val repo = arguments?.getString(KEY_REPO).toString()
         val avatar = arguments?.getString(KEY_AVATAR).toString()
-        Glide.with(this).load(avatar).into(binding.itemRepos.avatar)
-        binding.itemRepos.login.text = login
-        binding.itemRepos.repository.text = repo
-        binding.itemRepos.description.text = arguments?.getString(KEY_DESC).toString()
+        with(binding) {
+            Glide.with(this@IssuesFragment).load(avatar).into(itemRepos.avatar)
+            itemRepos.login.text = login
+            itemRepos.repository.text = repo
+            itemRepos.description.text = arguments?.getString(KEY_DESC).toString()
+        }
 
         return Pair(login, repo)
     }

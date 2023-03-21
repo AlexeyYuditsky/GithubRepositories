@@ -19,4 +19,6 @@
     <string name="repository">Repository:</string>
     <string name="no_issues_found">No issues found</string>
     <string name="issues">Issues: %s</string>
+    <string name="load_error">Oops, can\'t load data</string>
+    <string name="hint_issues">Issues:</string>
 </resources>

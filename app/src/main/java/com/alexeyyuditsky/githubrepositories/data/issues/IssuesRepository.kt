@@ -1,6 +1,5 @@
 package com.alexeyyuditsky.githubrepositories.data.issues
 
-import com.alexeyyuditsky.githubrepositories.core.log
 import com.alexeyyuditsky.githubrepositories.data.issues.cloud.IssuesCloudDataSource
 
 interface IssuesRepository {
