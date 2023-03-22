@@ -3,7 +3,6 @@ package com.alexeyyuditsky.githubrepositories.presentation.repos
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
-import com.alexeyyuditsky.githubrepositories.data.repos.cloud.RepoCloud
 import com.alexeyyuditsky.githubrepositories.databinding.ItemReposBinding
 
 typealias ItemClickListener = (repoUi: RepoUi) -> Unit

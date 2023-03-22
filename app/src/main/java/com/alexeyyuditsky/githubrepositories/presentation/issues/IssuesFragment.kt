@@ -10,27 +10,29 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import com.alexeyyuditsky.githubrepositories.R
 import com.alexeyyuditsky.githubrepositories.core.App
 import com.alexeyyuditsky.githubrepositories.databinding.FragmentIssuesBinding
-import com.alexeyyuditsky.githubrepositories.presentation.ViewModelFactoryIssues
 import com.alexeyyuditsky.githubrepositories.presentation.main.MainActivity
 import com.bumptech.glide.Glide
 
 class IssuesFragment : Fragment(R.layout.fragment_issues) {
 
-    private val app by lazy { (requireActivity().application as App) }
-    private val viewModel by viewModels<IssuesViewModel> {
-        ViewModelFactoryIssues(
-            app.issuesInteractor,
-            app.resourceProvider
-        )
-    }
-    private lateinit var binding: FragmentIssuesBinding
+    private val viewModel by viewModels<IssuesViewModel>(
+        factoryProducer = { (requireActivity().application as App).issuesFactory() }
+    )
+    private var _binding: FragmentIssuesBinding? = null
+    private val binding get() = _binding!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding = FragmentIssuesBinding.bind(view)
+        super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentIssuesBinding.bind(view)
         val dataForQuery = fetchFragmentArguments()
         val issuesAdapter = initViews(dataForQuery.second)
         fetchIssues(savedInstanceState, dataForQuery)
         initObservers(issuesAdapter)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun initViews(repo: String): IssuesAdapter {
@@ -42,6 +44,8 @@ class IssuesFragment : Fragment(R.layout.fragment_issues) {
         val actionBar = (requireActivity() as MainActivity).supportActionBar
         actionBar?.title = getString(R.string.issues, repo)
         actionBar?.show()
+
+
     }
 
     private fun initRecyclerView(): IssuesAdapter {

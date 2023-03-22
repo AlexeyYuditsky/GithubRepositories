@@ -1,7 +1,6 @@
 package com.alexeyyuditsky.githubrepositories.presentation.repos
 
 import androidx.recyclerview.widget.RecyclerView
-import com.alexeyyuditsky.githubrepositories.data.repos.cloud.RepoCloud
 import com.alexeyyuditsky.githubrepositories.databinding.ItemReposBinding
 import com.bumptech.glide.Glide
 

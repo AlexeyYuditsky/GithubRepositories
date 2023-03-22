@@ -13,10 +13,9 @@ import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.SimpleItemAnimator
-import com.alexeyyuditsky.githubrepositories.core.App
 import com.alexeyyuditsky.githubrepositories.R
+import com.alexeyyuditsky.githubrepositories.core.App
 import com.alexeyyuditsky.githubrepositories.databinding.FragmentReposBinding
-import com.alexeyyuditsky.githubrepositories.presentation.ViewModelFactoryRepos
 import com.alexeyyuditsky.githubrepositories.presentation.issues.IssuesFragment
 import com.alexeyyuditsky.githubrepositories.presentation.main.MainActivity
 import kotlinx.coroutines.flow.collectLatest
@@ -24,15 +23,22 @@ import kotlinx.coroutines.launch
 
 class ReposFragment : Fragment(R.layout.fragment_repos) {
 
-    private val app by lazy { (requireActivity().application as App) }
-    private val viewModel by viewModels<ReposViewModel> { ViewModelFactoryRepos(app.reposInteractor) }
-    private lateinit var binding: FragmentReposBinding
+    private val viewModel by viewModels<ReposViewModel>(
+        factoryProducer = { (requireActivity().application as App).reposFactory() }
+    )
+    private var _binding: FragmentReposBinding? = null
+    private val binding get() = _binding!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentReposBinding.bind(view)
+        _binding = FragmentReposBinding.bind(view)
         val reposAdapter = initViews()
         initObservers(reposAdapter)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun initViews(): ReposAdapterPaging {

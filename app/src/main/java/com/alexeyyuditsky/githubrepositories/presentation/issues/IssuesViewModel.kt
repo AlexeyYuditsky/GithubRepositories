@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexeyyuditsky.githubrepositories.core.ResourceProvider
-import com.alexeyyuditsky.githubrepositories.core.log
 import com.alexeyyuditsky.githubrepositories.domain.issues.IssuesInteractor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

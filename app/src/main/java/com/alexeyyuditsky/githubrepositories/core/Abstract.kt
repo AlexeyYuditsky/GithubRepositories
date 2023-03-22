@@ -3,8 +3,6 @@ package com.alexeyyuditsky.githubrepositories.core
 import retrofit2.HttpException
 import java.net.UnknownHostException
 import com.alexeyyuditsky.githubrepositories.R
-import com.alexeyyuditsky.githubrepositories.presentation.issues.IssueUi
-import com.alexeyyuditsky.githubrepositories.presentation.issues.IssuesUi
 
 interface Abstract {
 
