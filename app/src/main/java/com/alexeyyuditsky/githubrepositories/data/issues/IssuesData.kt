@@ -6,7 +6,7 @@ import com.alexeyyuditsky.githubrepositories.domain.issues.IssuesDomain
 
 sealed class IssuesData : Abstract.DataToDomain<IssuesDomain> {
 
-    class Base(
+    data class Base(
         private val issues: List<IssueCloud>,
     ) : IssuesData() {
         override fun map(): IssuesDomain {
@@ -14,7 +14,7 @@ sealed class IssuesData : Abstract.DataToDomain<IssuesDomain> {
         }
     }
 
-    class Fail(
+    data class Fail(
         private val e: Exception,
     ) : IssuesData() {
         override fun map(): IssuesDomain {

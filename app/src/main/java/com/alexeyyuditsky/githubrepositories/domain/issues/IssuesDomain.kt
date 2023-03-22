@@ -9,7 +9,7 @@ import com.alexeyyuditsky.githubrepositories.presentation.issues.IssuesUi
 
 sealed class IssuesDomain : Abstract.DomainToUi<IssuesUi> {
 
-    class Base(
+    data class Base(
         private val issues: List<IssueCloud>,
     ) : IssuesDomain() {
 
@@ -21,7 +21,7 @@ sealed class IssuesDomain : Abstract.DomainToUi<IssuesUi> {
         }
     }
 
-    class Fail(
+    data class Fail(
         private val e: ErrorType,
     ) : IssuesDomain() {
         override fun map(resourceProvider: ResourceProvider): IssuesUi {
