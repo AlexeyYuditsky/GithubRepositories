@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="8dp">
+    android:padding="@dimen/main_margin">
 
     <TextView
         android:id="@+id/hintTitle"
@@ -41,12 +40,10 @@
 
     <TextView
         android:id="@+id/title"
+        style="@style/TextMain"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:ellipsize="end"
-        android:lines="1"
-        android:textColor="@color/black"
+        android:layout_marginHorizontal="@dimen/main_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/hintUpdated"
         app:layout_constraintTop_toTopOf="parent"
@@ -54,11 +51,9 @@
 
     <TextView
         android:id="@+id/user"
+        style="@style/TextMain"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:lines="1"
-        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/title"
         app:layout_constraintStart_toStartOf="@+id/title"
         app:layout_constraintTop_toBottomOf="@id/hintTitle"
@@ -66,11 +61,9 @@
 
     <TextView
         android:id="@+id/created"
+        style="@style/TextMain"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:lines="1"
-        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/title"
         app:layout_constraintStart_toStartOf="@+id/title"
         app:layout_constraintTop_toBottomOf="@id/hintUser"
@@ -78,11 +71,9 @@
 
     <TextView
         android:id="@+id/updated"
+        style="@style/TextMain"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:lines="1"
-        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/title"
         app:layout_constraintStart_toStartOf="@+id/created"
         app:layout_constraintTop_toBottomOf="@id/hintCreated"
