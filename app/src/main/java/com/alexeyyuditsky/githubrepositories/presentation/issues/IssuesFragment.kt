@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.alexeyyuditsky.githubrepositories.R
@@ -12,6 +13,7 @@ import com.alexeyyuditsky.githubrepositories.core.App
 import com.alexeyyuditsky.githubrepositories.databinding.FragmentIssuesBinding
 import com.alexeyyuditsky.githubrepositories.presentation.main.MainActivity
 import com.bumptech.glide.Glide
+import kotlinx.coroutines.launch
 
 class IssuesFragment : Fragment(R.layout.fragment_issues) {
 
@@ -44,8 +46,6 @@ class IssuesFragment : Fragment(R.layout.fragment_issues) {
         val actionBar = (requireActivity() as MainActivity).supportActionBar
         actionBar?.title = getString(R.string.issues, repo)
         actionBar?.show()
-
-
     }
 
     private fun initRecyclerView(): IssuesAdapter {
@@ -57,8 +57,10 @@ class IssuesFragment : Fragment(R.layout.fragment_issues) {
     }
 
     private fun initObservers(issuesAdapter: IssuesAdapter) {
-        viewModel.issuesLiveData.observe(viewLifecycleOwner) {
-            issuesAdapter.update(it)
+        lifecycleScope.launch {
+            viewModel.issuesFlow.collect {
+                issuesAdapter.update(it)
+            }
         }
     }
 
